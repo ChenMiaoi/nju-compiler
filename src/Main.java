@@ -55,7 +55,7 @@ public class Main
         
         // 获取词法分析器
         CharStream inputStream = CharStreams.fromFileName(source_file);
-        SysYLexer sysYLexer = new SysYLexer(inputStream);
+        SysYLexerLexer sysYLexer = new SysYLexerLexer(inputStream);
 
         // 自定义BaseErrorListen
         sysYLexer.removeErrorListeners();
@@ -67,12 +67,12 @@ public class Main
         for (Token token : tokens) {
             if (token.getText().contains("0x") || token.getText().contains("0X")) {
                 String hex = token.getText().substring(2);
-                System.err.println(tokenSymbols[token.getType()] + " " + any2Dec(hex, true) + " at Line " + token.getLine());
+                System.out.println(tokenSymbols[token.getType() - 1] + " " + any2Dec(hex, true) + " at Line " + token.getLine());
             } else if (token.getText().length() > 1 && token.getText().contains("0")) {
                 String oct = token.getText().substring(1);
-                System.err.println(tokenSymbols[token.getType()] + " " + any2Dec(oct, false) + " at Line " + token.getLine());
+                System.out.println(tokenSymbols[token.getType() - 1] + " " + any2Dec(oct, false) + " at Line " + token.getLine());
             } else {
-                System.err.println(tokenSymbols[token.getType()] + " " + token.getText() + " at Line " + token.getLine());
+                System.out.println(tokenSymbols[token.getType() - 1] + " " + token.getText() + " at Line " + token.getLine());
             }
         }
     }
