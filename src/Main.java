@@ -21,7 +21,7 @@ public class Main
         sysYLexer.removeErrorListeners();
         SysYErrorListener sysYErrorListener = new SysYErrorListener();
         sysYLexer.addErrorListener(sysYErrorListener);
-
+        System.out.println(sysYLexer.getTokenNames()[1]);
         // 获取自定义后的token输出
         List<? extends Token> tokens = sysYLexer.getAllTokens();
         for (Token token : tokens) {
