@@ -33,11 +33,11 @@ R_BRACKT : ']' ;
 COMMA : ',' ;
 SEMICOLON : ';' ;
 
-IDENT : (LETTER | DIGIT)('_' | LETTER | DIGIT)* ;
 INTEGER_CONST : DECIMAL_CONST
               | OCTAL_CONST
               | HEXDECIMAL_CONST
               ;
+IDENT : (LETTER | DIGIT)('_' | LETTER | DIGIT)* ;
 
 WS : [ \t\r\n] -> skip ;
 LINE_COMMENT : '//' .*? '\n' -> skip ;
