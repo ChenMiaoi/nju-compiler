@@ -29,6 +29,10 @@ public class Main
         return ret;
     }
 
+    private static int oct2Dec(Character c) {
+        return Character.getNumericValue(c);
+    }
+
     public static void main(String[] args) throws IOException {
         if (args.length < 1) {
             System.err.println("input path is required!");
@@ -55,7 +59,12 @@ public class Main
                 }
                 System.out.println(tokenSymbols[token.getType()] + " " + sum + " at Line " + token.getLine());
             } else if (token.getText().length() > 1 && token.getText().contains("0")) {
-
+                String oct = token.getText().substring(1);
+                int sum = 0;
+                for (int i = 0; i < oct.length(); i++) {
+                    sum += oct2Dec(oct.charAt(i)) * Math.pow(8, oct.length() - i - 1);
+                }
+                System.out.println(tokenSymbols[token.getType()] + " " + sum + " at Line " + token.getLine());
             } else {
                 System.out.println(tokenSymbols[token.getType()] + " " + token.getText() + " at Line " + token.getLine());
             }
