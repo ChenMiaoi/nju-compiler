@@ -21,9 +21,9 @@ public class Main
             ret = Character.getNumericValue(c);
         } else if (Character.isLetter(c)) {
             if (Character.isUpperCase(c)) {
-                ret = c - 'A';
+                ret = c - 'A' + 10;
             } else {
-                ret = c - 'a';
+                ret = c - 'a' + 10;
             }
         }
         return ret;
