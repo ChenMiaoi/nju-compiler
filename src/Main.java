@@ -33,6 +33,20 @@ public class Main
         return Character.getNumericValue(c);
     }
 
+    private static int any2Dec(String any, Boolean flag) {
+        int sum = 0;
+        if (flag) { // 0x
+            for (int i = 0; i < any.length(); i++) {
+                sum += hex2Dec(any.charAt(i)) * Math.pow(16, any.length() - i - 1);
+            }
+        } else { // 0
+            for (int i = 0; i < any.length(); i++) {
+                sum += oct2Dec(any.charAt(i)) * Math.pow(8, any.length() - i - 1);
+            }
+        }
+        return sum;
+    }
+
     public static void main(String[] args) throws IOException {
         if (args.length < 1) {
             System.err.println("input path is required!");
@@ -53,18 +67,10 @@ public class Main
         for (Token token : tokens) {
             if (token.getText().contains("0x") || token.getText().contains("0X")) {
                 String hex = token.getText().substring(2);
-                int sum = 0;
-                for (int i = 0; i < hex.length(); i++) {
-                    sum += hex2Dec(hex.charAt(i)) * Math.pow(16, hex.length() - i - 1);
-                }
-                System.out.println(tokenSymbols[token.getType()] + " " + sum + " at Line " + token.getLine());
+                System.out.println(tokenSymbols[token.getType()] + " " + any2Dec(hex, true) + " at Line " + token.getLine());
             } else if (token.getText().length() > 1 && token.getText().contains("0")) {
                 String oct = token.getText().substring(1);
-                int sum = 0;
-                for (int i = 0; i < oct.length(); i++) {
-                    sum += oct2Dec(oct.charAt(i)) * Math.pow(8, oct.length() - i - 1);
-                }
-                System.out.println(tokenSymbols[token.getType()] + " " + sum + " at Line " + token.getLine());
+                System.out.println(tokenSymbols[token.getType()] + " " + any2Dec(oct, false) + " at Line " + token.getLine());
             } else {
                 System.out.println(tokenSymbols[token.getType()] + " " + token.getText() + " at Line " + token.getLine());
             }
