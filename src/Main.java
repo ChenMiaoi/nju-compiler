@@ -15,6 +15,20 @@ public class Main
         "WS", "LINE_COMMENT", "MULTILINE_COMMENT"
 	};
 
+    private static int hex2Dec(Character c) {
+        int ret = 0;
+        if (Character.isDigit(c)) {
+            ret = Character.getNumericValue(c);
+        } else if (Character.isLetter(c)) {
+            if (Character.isUpperCase(c)) {
+                ret = c - 'A';
+            } else {
+                ret = c - 'a';
+            }
+        }
+        return ret;
+    }
+
     public static void main(String[] args) throws IOException {
         if (args.length < 1) {
             System.err.println("input path is required!");
@@ -33,7 +47,18 @@ public class Main
         // 获取自定义后的token输出
         List<? extends Token> tokens = sysYLexer.getAllTokens();
         for (Token token : tokens) {
-            System.out.println(tokenSymbols[token.getType()] + " " + token.getText() + " at Line " + token.getLine());
+            if (token.getText().contains("0x") || token.getText().contains("0X")) {
+                String hex = token.getText().substring(2);
+                int sum = 0;
+                for (int i = 0; i < hex.length(); i++) {
+                    sum += hex2Dec(hex.charAt(i)) * Math.pow(16, hex.length() - i - 1);
+                }
+                System.out.println(tokenSymbols[token.getType()] + " " + sum + " at Line " + token.getLine());
+            } else if (token.getText().length() > 1 && token.getText().contains("0")) {
+
+            } else {
+                System.out.println(tokenSymbols[token.getType()] + " " + token.getText() + " at Line " + token.getLine());
+            }
         }
     }
 }
