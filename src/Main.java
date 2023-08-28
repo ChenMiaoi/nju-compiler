@@ -25,6 +25,7 @@ public class Main
         // 获取自定义后的token输出
         List<? extends Token> tokens = sysYLexer.getAllTokens();
         for (Token token : tokens) {
+            
             System.out.println(token);
         }
     }
