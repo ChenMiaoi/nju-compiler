@@ -1,6 +1,4 @@
-grammar SysYLexer ;
-
-program : 'program' ;
+lexer grammar SysYLexer ;
 
 CONST : 'const' ;
 INT : 'int' ;
@@ -36,10 +34,9 @@ COMMA : ',' ;
 SEMICOLON : ';' ;
 
 IDENT : (LETTER | DIGIT)('_' | LETTER | DIGIT)* ;
-INTEGER_CONST : ('0' | [1-9]DIGIT*)
-              | ('0' | [1-7]DIGIT*)
-              | ('0x' | [1-9][a-fA-F]*)
-              | ('0X' | [1-9][a-fA-F]*)
+INTEGER_CONST : DECIMAL_CONST
+              | OCTAL_CONST
+              | HEXDECIMAL_CONST
               ;
 
 WS : [ \t\r\n] -> skip ;
@@ -48,3 +45,9 @@ MULTILINE_COMMENT : '/*' .*? '*/' -> skip ;
 
 fragment DIGIT : [0-9] ;
 fragment LETTER : [a-zA-Z] ;
+fragment DECIMAL_CONST : '0'
+                       | [1-9]DIGIT*
+                       ;
+fragment OCTAL_CONST : '0'[0-7]+ ;
+fragment HEXDECIMAL_CONST : ('0x' | '0X')[a-fA-F]DIGIT+ ;
+                     
