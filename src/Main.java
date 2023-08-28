@@ -67,12 +67,12 @@ public class Main
         for (Token token : tokens) {
             if (token.getText().contains("0x") || token.getText().contains("0X")) {
                 String hex = token.getText().substring(2);
-                System.out.println(tokenSymbols[token.getType() - 1] + " " + any2Dec(hex, true) + " at Line " + token.getLine());
+                System.err.println(tokenSymbols[token.getType() - 1] + " " + any2Dec(hex, true) + " at Line " + token.getLine() + ".");
             } else if (token.getText().length() > 1 && token.getText().contains("0")) {
                 String oct = token.getText().substring(1);
-                System.out.println(tokenSymbols[token.getType() - 1] + " " + any2Dec(oct, false) + " at Line " + token.getLine());
+                System.err.println(tokenSymbols[token.getType() - 1] + " " + any2Dec(oct, false) + " at Line " + token.getLine() + ".");
             } else {
-                System.out.println(tokenSymbols[token.getType() - 1] + " " + token.getText() + " at Line " + token.getLine());
+                System.err.println(tokenSymbols[token.getType() - 1] + " " + token.getText() + " at Line " + token.getLine() + ".");
             }
         }
     }
